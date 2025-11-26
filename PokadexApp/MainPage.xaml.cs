@@ -1,24 +1,32 @@
-﻿namespace PokadexApp
+﻿
+
+namespace PokadexApp
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        bool DarkMode = Preferences.Get("Dark",false);
 
         public MainPage()
         {
             InitializeComponent();
-        }
+            ApplyTheme();
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+
+            
+        }
+        
+        void ApplyTheme()
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            if (DarkMode == false)
+            {
+                Application.Current.Resources["Theme"] = Color.FromArgb("#ffffff");
+            }
+            else if (DarkMode == true)
+            {
+                Application.Current.Resources["Theme"] = Color.FromArgb("#000000");
+            }
         }
+
+
     }
 }
