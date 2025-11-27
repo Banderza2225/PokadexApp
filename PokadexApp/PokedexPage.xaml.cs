@@ -7,50 +7,34 @@ public partial class PokedexPage : ContentPage
     bool DarkMode = Preferences.Get("Dark", false);
     string TextColor, FrameColor;
     Color text;
-
+    SettingsPage SettingsPage = new SettingsPage();
     public PokedexPage()
     {
         InitializeComponent();
-        ApplyTheme();
+        SettingsPage.ApplyTheme();
         LoadPokemonRange(1, 1000);
     }
 
-    void ApplyTheme()
-    {
-        if (DarkMode)
-        {
-
-
-           Application.Current.Resources["Theme"] = Color.FromArgb("#FFFFFF");
-           
-
-        }
-        else
-        {
-
-            Application.Current.Resources["Theme"] = Color.FromArgb("#000000");
-            
-
-        }
-    }
+   
 
 
     async void LoadPokemonRange(int start, int end)
     {
         for (int id = start; id <= end; id++)
         {
-            await CreatePoke(id);
+           Pokemon p= await CreatePoke(id);
+            await AddPokemon(p);
         }
     }
 
-    async Task CreatePoke(int id)
+     async Task<Pokemon> CreatePoke(int id)
     {
-        try
-        {
+        
+       
             string apiUrl = $"https://pokeapi.co/api/v2/pokemon/{id}";
             HttpClient client = new HttpClient();
 
-            var json = await client.GetStringAsync(apiUrl);
+            var json =  await client.GetStringAsync(apiUrl);
 
             var options = new JsonSerializerOptions
             {
@@ -58,22 +42,14 @@ public partial class PokedexPage : ContentPage
             };
 
             var pokemon = JsonSerializer.Deserialize<Pokemon>(json, options);
-            if (pokemon == null)
-            {
-                await DisplayAlert("Error", $"Failed to load Pokémon {id}", "OK");
-                return;
-            }
+            
 
             // Convert height and weight to human-readable units
             pokemon.Height /= 10;
             pokemon.Weight /= 10;
 
-            await AddPokemon(pokemon);
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Exception", ex.Message, "OK");
-        }
+            return pokemon;
+       
     }
 
     async Task AddPokemon(Pokemon pokemon)
@@ -99,7 +75,7 @@ public partial class PokedexPage : ContentPage
             CornerRadius = 20,
             Margin = 10,
             Padding = 10,
-            BackgroundColor = Color.FromArgb("#333333")
+            BackgroundColor = Color.FromArgb("#555555")
         };
         //frame.SetDynamicResource(Frame.BackgroundColorProperty, "Theme");
 

@@ -12,7 +12,7 @@ public partial class SettingsPage : ContentPage
         ApplyTheme();
     }
 
-    private async void turnDark(object sender, EventArgs e)
+    public async void turnDark(object sender, EventArgs e)
     {
         if (DarkMode == false)
         {
@@ -33,16 +33,19 @@ public partial class SettingsPage : ContentPage
 
         
     }
-    async void ApplyTheme()
+    public void ApplyTheme()
     {
         if (DarkMode == false)
         {
-            Application.Current.Resources["Theme"] = Color.FromArgb("#ffffff");
+            Application.Current.Resources["Theme"] = Color.FromArgb("#EEEEEE");
+            Application.Current.Resources["Text"] = Color.FromArgb("#000000");
+            Application.Current.Resources["Accent1"] = Color.FromArgb("#DDDDDD");
         }
         else if (DarkMode == true)
         {
-            Application.Current.Resources["Theme"] = Color.FromArgb("#000000");
+            Application.Current.Resources["Theme"] = Color.FromArgb("#333333");
+            Application.Current.Resources["Text"] = Color.FromArgb("#ffffff");
+            Application.Current.Resources["Accent1"] = Color.FromArgb("#444444");
         }
-       
     }
 }

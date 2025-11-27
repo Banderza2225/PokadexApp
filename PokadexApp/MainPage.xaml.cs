@@ -3,13 +3,13 @@
 namespace PokadexApp
 {
     public partial class MainPage : ContentPage
-    {
+    {    SettingsPage SettingsPage = new SettingsPage();
         bool DarkMode = Preferences.Get("Dark",false);
 
         public MainPage()
         {
             InitializeComponent();
-            ApplyTheme();
+            SettingsPage.ApplyTheme();
 
 
             

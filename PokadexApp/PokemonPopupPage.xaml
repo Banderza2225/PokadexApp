@@ -13,11 +13,11 @@
                            MaximumWidthRequest="500"
                              >
 
-            <!-- SPRITE FRAME -->
+            
             <Frame CornerRadius="20"
                    Padding="15"
                    HasShadow="True"
-                   BackgroundColor="DarkGrey"
+                   BackgroundColor="{DynamicResource Accent1}"
                    
                 HorizontalOptions="Fill"
              MaximumWidthRequest="500"
@@ -36,7 +36,7 @@
                                WidthRequest="170"
                                HeightRequest="170" />
                         <Label Text="Front"
-                               TextColor="black"
+                               TextColor="{DynamicResource Text}"
                                HorizontalOptions="Center"/>
                     </VerticalStackLayout>
 
@@ -46,7 +46,7 @@
                                WidthRequest="170"
                                HeightRequest="170" />
                         <Label Text="Back"
-                               TextColor="black"
+                               TextColor="{DynamicResource Text}"
                                HorizontalOptions="Center"/>
                     </VerticalStackLayout>
 
@@ -56,7 +56,7 @@
                                WidthRequest="170"
                                HeightRequest="170" />
                         <Label Text="Front (Shiny)"
-                               TextColor="black"
+                              TextColor="{DynamicResource Text}"
                                HorizontalOptions="Center"/>
                     </VerticalStackLayout>
 
@@ -66,47 +66,47 @@
                                WidthRequest="170"
                                HeightRequest="170" />
                         <Label Text="Back (Shiny)"
-                               TextColor="black"
+                               TextColor="{DynamicResource Text}"
                                HorizontalOptions="Center"/>
                     </VerticalStackLayout>
 
                 </Grid>
             </Frame>
 
-            <!-- NAME + ID -->
+            
             <Label x:Name="PokemonName"
                    FontSize="28"
                    FontAttributes="Bold"
-                   TextColor="black"
+                   TextColor="{DynamicResource Text}"
                    HorizontalOptions="Center"/>
 
             <Label x:Name="PokemonId"
                    FontSize="18"
-                   TextColor="black"
+                   TextColor="{DynamicResource Text}"
                    HorizontalOptions="Center"/>
 
-            <!-- STATS -->
+            
             <Frame CornerRadius="15"
                    Padding="15"
                    HasShadow="True"
-                   BackgroundColor="DarkGrey"
+                   BackgroundColor="{DynamicResource Accent1}"
                    HorizontalOptions="Fill"
                    MaximumWidthRequest="500"
                    >
 
                 <VerticalStackLayout Spacing="8">
                     <Label x:Name="PokemonHeight"
-                           TextColor="black"
+                           TextColor="{DynamicResource Text}"
                            FontAttributes="Bold"
                            
                            />
 
                     <Label x:Name="PokemonWeight"
-                           TextColor="black"
+                           TextColor="{DynamicResource Text}"
                            FontAttributes="Bold"/>
 
                     <Label x:Name="PokemonBaseExp"
-                           TextColor="black"
+                          TextColor="{DynamicResource Text}"
                            FontAttributes="Bold"/>
 
                     <Label />

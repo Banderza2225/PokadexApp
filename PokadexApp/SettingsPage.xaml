@@ -11,7 +11,7 @@
             x:Name="darkB"
             Text="Turn on Darkmode"
             Clicked="turnDark"        
-            BackgroundColor="{DynamicResource Text}"
+            BackgroundColor="gray"
             />
     </VerticalStackLayout>
 </ContentPage>
