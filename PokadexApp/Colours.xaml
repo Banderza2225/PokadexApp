@@ -5,7 +5,7 @@
     
     <Color x:Key="white">#000000</Color>
     <Color x:Key="black">#ffffff</Color>
-    <Color x:Key="Theme">#ffffff</Color>
+    <Color x:Key="Theme">#000000</Color>
     <Color x:Key="Text">blue</Color>
-
+    <Color x:Key="Accent1">#737070</Color>
 </ResourceDictionary>

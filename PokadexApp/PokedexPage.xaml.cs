@@ -5,6 +5,8 @@ namespace PokadexApp;
 public partial class PokedexPage : ContentPage
 {
     bool DarkMode = Preferences.Get("Dark", false);
+    string TextColor, FrameColor;
+    Color text;
 
     public PokedexPage()
     {
@@ -15,9 +17,23 @@ public partial class PokedexPage : ContentPage
 
     void ApplyTheme()
     {
-        Application.Current.Resources["Theme"] =
-            DarkMode ? Color.FromArgb("#000000") : Color.FromArgb("#ffffff");
+        if (DarkMode)
+        {
+
+
+           Application.Current.Resources["Theme"] = Color.FromArgb("#FFFFFF");
+           
+
+        }
+        else
+        {
+
+            Application.Current.Resources["Theme"] = Color.FromArgb("#000000");
+            
+
+        }
     }
+
 
     async void LoadPokemonRange(int start, int end)
     {
@@ -41,14 +57,16 @@ public partial class PokedexPage : ContentPage
                 PropertyNameCaseInsensitive = true
             };
 
-            
             var pokemon = JsonSerializer.Deserialize<Pokemon>(json, options);
-
             if (pokemon == null)
             {
                 await DisplayAlert("Error", $"Failed to load Pokémon {id}", "OK");
                 return;
             }
+
+            // Convert height and weight to human-readable units
+            pokemon.Height /= 10;
+            pokemon.Weight /= 10;
 
             await AddPokemon(pokemon);
         }
@@ -60,49 +78,76 @@ public partial class PokedexPage : ContentPage
 
     async Task AddPokemon(Pokemon pokemon)
     {
+        // Labels
+        var nameLabel = new Label
+        {
+            Text = pokemon.Name.ToUpper(),
+            FontAttributes = FontAttributes.Bold,
+            FontSize = 22
+        };
+        nameLabel.SetDynamicResource(Label.TextColorProperty, "Text");
+
+        var idLabel = new Label
+        {
+            Text = $"ID: {pokemon.Id}"
+        };
+        idLabel.SetDynamicResource(Label.TextColorProperty, "Text");
+
+        // Frame
         var frame = new Frame
         {
             CornerRadius = 20,
             Margin = 10,
             Padding = 10,
-            BackgroundColor = Colors.White,
-            Content = new HorizontalStackLayout
+            BackgroundColor = Color.FromArgb("#333333")
+        };
+        //frame.SetDynamicResource(Frame.BackgroundColorProperty, "Theme");
+
+        // Frame content
+        frame.Content = new HorizontalStackLayout
+        {
+            Spacing = 10,
+            Children =
+        {
+            new Image
             {
-                Spacing = 10,
+                Source = pokemon.Sprites.FrontDefault,
+                WidthRequest = 80,
+                HeightRequest = 80
+            },
+            new VerticalStackLayout
+            {
+                VerticalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    new Image
-                    {
-                        Source = pokemon.Sprites.FrontDefault,
-                        WidthRequest = 80,
-                        HeightRequest = 80
-                    },
-
-                    new VerticalStackLayout
-                    {
-                        VerticalOptions = LayoutOptions.Center,
-                        Children =
-                        {
-                            new Label
-                            {
-                                Text = pokemon.Name.ToUpper(),
-                                FontAttributes = FontAttributes.Bold,
-                                FontSize = 22
-                            },
-                            new Label
-                            {
-                                Text = $"ID: {pokemon.Id}"
-                            }
-                        }
-                    }
+                    nameLabel,
+                    idLabel
                 }
             }
+        }
         };
 
+        // Tap gesture for popup
+        var tap = new TapGestureRecognizer();
+        tap.Tapped += (s, e) => ShowPokemonPopup(pokemon);
+        frame.GestureRecognizers.Add(tap);
+
+        // Add frame to layout
         MainThread.BeginInvokeOnMainThread(() =>
         {
             PokemonListLayout.Children.Add(frame);
         });
-    }
-}
 
+       
+    }
+
+
+    async void ShowPokemonPopup(Pokemon pokemon)
+    {
+        await Navigation.PushModalAsync(new PokemonPopupPage(pokemon));
+
+
+    }
+
+
+}

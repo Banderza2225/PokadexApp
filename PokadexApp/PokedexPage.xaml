@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PokadexApp.PokedexPage"
              Title=""
-              BackgroundColor="{DynamicResource Theme}">
-    <ScrollView>
-        <VerticalStackLayout x:Name="PokemonListLayout">
+             BackgroundColor="{DynamicResource Theme}">
+    <ContentPage.Resources>
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+
+
+            <Color x:Key="Text">white </Color>
+            
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+
+
+    <ScrollView>
+        <VerticalStackLayout x:Name="PokemonListLayout"
+                             Spacing="10"
+                             Padding="10,50,10,10"
+                             
+                             >
+                             
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
+

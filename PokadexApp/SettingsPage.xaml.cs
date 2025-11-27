@@ -12,7 +12,7 @@ public partial class SettingsPage : ContentPage
         ApplyTheme();
     }
 
-    private void turnDark(object sender, EventArgs e)
+    private async void turnDark(object sender, EventArgs e)
     {
         if (DarkMode == false)
         {
@@ -31,9 +31,9 @@ public partial class SettingsPage : ContentPage
 
         ApplyTheme();
 
-
+        
     }
-    void ApplyTheme()
+    async void ApplyTheme()
     {
         if (DarkMode == false)
         {
@@ -43,5 +43,6 @@ public partial class SettingsPage : ContentPage
         {
             Application.Current.Resources["Theme"] = Color.FromArgb("#000000");
         }
+       
     }
 }

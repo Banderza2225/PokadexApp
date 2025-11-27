@@ -2,7 +2,7 @@
 
 namespace PokadexApp
 {
-    class Pokemon
+   public class Pokemon
     {
         public int Id { get; set; }
 
@@ -12,8 +12,8 @@ namespace PokadexApp
         [JsonPropertyName("base_experience")]
         public int BaseExperience { get; set; }
 
-        public int Height { get; set; }
-        public int Weight { get; set; }
+        public double Height { get; set; }
+        public double Weight { get; set; }
 
         [JsonPropertyName("is_default")]
         public bool IsDefault { get; set; }
