@@ -4,30 +4,28 @@ namespace PokadexApp;
 
 public partial class PokedexPage : ContentPage
 {
-    bool DarkMode = Preferences.Get("Dark", false);
-    string TextColor, FrameColor;
-    Color text;
-    SettingsPage SettingsPage = new SettingsPage();
+    
+    StorePokemon stored = new StorePokemon();
     public PokedexPage()
     {
         InitializeComponent();
-        SettingsPage.ApplyTheme();
+        Theme.ApplyTheme(Preferences.Get("Dark", false));
         LoadPokemonRange(1, 1000);
     }
 
    
+    
 
-
-    async void LoadPokemonRange(int start, int end)
+    public  async Task   LoadPokemonRange(int start, int end)
     {
         for (int id = start; id <= end; id++)
         {
-           Pokemon p= await CreatePoke(id);
+          var  p= await CreatePoke(id);
             await AddPokemon(p);
         }
     }
 
-     async Task<Pokemon> CreatePoke(int id)
+     public async Task<Pokemon> CreatePoke(int id)
     {
         
        
@@ -44,7 +42,6 @@ public partial class PokedexPage : ContentPage
             var pokemon = JsonSerializer.Deserialize<Pokemon>(json, options);
             
 
-            // Convert height and weight to human-readable units
             pokemon.Height /= 10;
             pokemon.Weight /= 10;
 
@@ -52,9 +49,9 @@ public partial class PokedexPage : ContentPage
        
     }
 
-    async Task AddPokemon(Pokemon pokemon)
+    public async Task AddPokemon(Pokemon pokemon)
     {
-        // Labels
+        
         var nameLabel = new Label
         {
             Text = pokemon.Name.ToUpper(),
@@ -69,7 +66,7 @@ public partial class PokedexPage : ContentPage
         };
         idLabel.SetDynamicResource(Label.TextColorProperty, "Text");
 
-        // Frame
+        
         var frame = new Frame
         {
             CornerRadius = 20,
@@ -77,9 +74,7 @@ public partial class PokedexPage : ContentPage
             Padding = 10,
             BackgroundColor = Color.FromArgb("#555555")
         };
-        //frame.SetDynamicResource(Frame.BackgroundColorProperty, "Theme");
-
-        // Frame content
+        
         frame.Content = new HorizontalStackLayout
         {
             Spacing = 10,
@@ -103,18 +98,27 @@ public partial class PokedexPage : ContentPage
         }
         };
 
-        // Tap gesture for popup
+        
         var tap = new TapGestureRecognizer();
         tap.Tapped += (s, e) => ShowPokemonPopup(pokemon);
         frame.GestureRecognizers.Add(tap);
 
-        // Add frame to layout
+
+        frame.TranslationX = 200;
+
         MainThread.BeginInvokeOnMainThread(() =>
         {
             PokemonListLayout.Children.Add(frame);
         });
 
-       
+        await Task.WhenAll(
+            frame.TranslateTo(0, 0, 200, Easing.CubicInOut)
+
+            );
+
+
+
+
     }
 
 
@@ -122,7 +126,7 @@ public partial class PokedexPage : ContentPage
     {
         await Navigation.PushModalAsync(new PokemonPopupPage(pokemon));
 
-
+        stored.SavePokemonVeiwed(pokemon);
     }
 
 

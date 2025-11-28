@@ -8,15 +8,6 @@ public partial class TeamsPage : ContentPage
 		InitializeComponent();
 
 
-        if (DarkMode == false)
-        {
-            Application.Current.Resources["Theme"] = Color.FromArgb("#ffffff");
-            
-        }
-        else
-        {
-            Application.Current.Resources["Theme"] = Color.FromArgb("#000000");
-            
-        }
+        Theme.ApplyTheme(Preferences.Get("Dark", false));
     }
 }

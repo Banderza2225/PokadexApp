@@ -114,8 +114,9 @@
 
             </Frame>
 
-            <!-- CLOSE BUTTON -->
-            <Button Text="Close"
+            <HorizontalStackLayout>
+
+                <Button Text="Close"
                     BackgroundColor="white"
                     TextColor="black"
                     FontAttributes="Bold"
@@ -123,6 +124,20 @@
                     WidthRequest="120"
                     Clicked="ClosePopup"
                     HorizontalOptions="Center"/>
+
+                <Button Text="Favourite"
+                    BackgroundColor="white"
+                    TextColor="black"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    WidthRequest="120"
+                    Clicked="SaveToFavourites"
+                    HorizontalOptions="Center"/>
+
+
+
+
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

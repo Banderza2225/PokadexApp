@@ -10,7 +10,7 @@
         <Button
             x:Name="darkB"
             Text="Turn on Darkmode"
-            Clicked="turnDark"        
+            Clicked="ApplyTheme"        
             BackgroundColor="gray"
             />
     </VerticalStackLayout>

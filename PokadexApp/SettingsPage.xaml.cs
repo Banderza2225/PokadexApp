@@ -9,43 +9,32 @@ public partial class SettingsPage : ContentPage
     public SettingsPage()
 	{
 		InitializeComponent();
-        ApplyTheme();
+        Theme.ApplyTheme(Preferences.Get("Dark", false));
     }
 
-    public async void turnDark(object sender, EventArgs e)
-    {
-        if (DarkMode == false)
+    
+    
+
+
+
+    public void ApplyTheme(object sender, EventArgs e) { 
+    
+       if (DarkMode==true)
         {
-           
-            DarkMode = true;
-            Preferences.Set("Dark", true);
-            darkB.Text = "Dark Mode";
-        }
-        else if(DarkMode == true ) {
-            
             DarkMode = false;
+            Preferences.Set("Dark", true);
+        }
+        else
+        {
+            DarkMode = true;
             Preferences.Set("Dark", false);
-            darkB.Text = "Light Mode";
         }
 
 
-        ApplyTheme();
 
-        
+        Theme.ApplyTheme(Preferences.Get("Dark", false));
+
+
     }
-    public void ApplyTheme()
-    {
-        if (DarkMode == false)
-        {
-            Application.Current.Resources["Theme"] = Color.FromArgb("#EEEEEE");
-            Application.Current.Resources["Text"] = Color.FromArgb("#000000");
-            Application.Current.Resources["Accent1"] = Color.FromArgb("#DDDDDD");
-        }
-        else if (DarkMode == true)
-        {
-            Application.Current.Resources["Theme"] = Color.FromArgb("#333333");
-            Application.Current.Resources["Text"] = Color.FromArgb("#ffffff");
-            Application.Current.Resources["Accent1"] = Color.FromArgb("#444444");
-        }
-    }
+
 }

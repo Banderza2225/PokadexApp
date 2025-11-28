@@ -5,13 +5,15 @@
               BackgroundColor="{DynamicResource Theme}"
              Title=""
              >
-        
-    <ScrollView>
-        <VerticalStackLayout>
-           
-           
-        </VerticalStackLayout>
 
+    <ScrollView>
+        <VerticalStackLayout x:Name="PokemonListLayout"
+                         Spacing="10"
+                         Padding="10,50,10,10"
+                         
+                         >
+
+        </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>
