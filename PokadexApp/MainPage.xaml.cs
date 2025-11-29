@@ -8,14 +8,14 @@ namespace PokadexApp
 
     public partial class MainPage : ContentPage
     {
-      List<Pokemon> pokemons = new List<Pokemon>();
+      List<Pokemon> Favourites = new List<Pokemon>();
         StorePokemon stored = new StorePokemon();
 
         public MainPage()
         {
             InitializeComponent();
             Theme.ApplyTheme(Preferences.Get("Dark", false));
-            LoadPokemonRange(600, 654);
+            LoadPokemon();
         }
 
         protected override async void OnAppearing()
@@ -25,13 +25,20 @@ namespace PokadexApp
             
         }
 
-        public async Task LoadPokemonRange(int start, int end)
+        public async Task LoadPokemon()
         {
-            for (int id = start; id <= end; id++)
+            
+            Favourites = stored.LoadFavouritePokemon();
+
+            foreach (var item in Favourites)
             {
+
                 
-                await AddPokemon(await CreatePoke(id));
+
+                await AddPokemon(item);
             }
+            
+            
         }
 
         public async Task<Pokemon> CreatePoke(int id)
@@ -139,6 +146,14 @@ namespace PokadexApp
         }
 
 
-       
+        private async void ReloadPokemon(object sender, EventArgs e)
+        {
+            PokemonListLayout.Children.Clear(); 
+            await LoadPokemon();  
+        }
+
+
+
+
     }
 }

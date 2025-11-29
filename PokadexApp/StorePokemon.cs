@@ -40,11 +40,21 @@ namespace PokadexApp
             File.WriteAllText(path, json);
         }
 
-        
-
-        public List<Pokemon> LoadFavouritePokemons()
+        public void RemoveFavourite(Pokemon pokemon)
         {
-            List<Pokemon> favouritePokemons = new List<Pokemon>();
+            string folder = FileSystem.AppDataDirectory;
+            string favFile = Path.Combine(folder, $"{pokemon.Id}F.json");
+
+            if (File.Exists(favFile))
+            {
+                File.Delete(favFile);
+            }
+        }
+
+
+        public List<Pokemon> LoadFavouritePokemon()
+        {
+            List<Pokemon> favouritePokemon = new List<Pokemon>();
             string appDataDirectory = FileSystem.AppDataDirectory;
             var files = Directory.GetFiles(appDataDirectory, "*F.json");
             foreach (var file in files)
@@ -57,10 +67,31 @@ namespace PokadexApp
                 var pokemon = JsonSerializer.Deserialize<Pokemon>(json, options);
                 if (pokemon != null)
                 {
-                    favouritePokemons.Add(pokemon);
+                    favouritePokemon.Add(pokemon);
                 }
             }
-            return favouritePokemons;
+            return favouritePokemon;
+        }
+
+        public List<Pokemon> LoadViewedPokemon()
+        {
+            List<Pokemon> viewedPokemon = new List<Pokemon>();
+            string appDataDirectory = FileSystem.AppDataDirectory;
+            var files = Directory.GetFiles(appDataDirectory, "*V.json");
+            foreach (var file in files)
+            {
+                string json = File.ReadAllText(file);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var pokemon = JsonSerializer.Deserialize<Pokemon>(json, options);
+                if (pokemon != null)
+                {
+                    viewedPokemon.Add(pokemon);
+                }
+            }
+            return viewedPokemon;
         }
     }
 }

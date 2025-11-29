@@ -6,14 +6,26 @@
              Title=""
              >
 
+
+
+
     <ScrollView>
-        <VerticalStackLayout x:Name="PokemonListLayout"
-                         Spacing="10"
-                         Padding="10,50,10,10"
-                         
-                         >
+        <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
+
+            
+            <Button
+            Text="Reload Pokemon"
+            Clicked="ReloadPokemon" 
+                HorizontalOptions="Center"
+                />
+            
+           
+            <VerticalStackLayout x:Name="PokemonListLayout"
+                             Spacing="10">
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
+
 
 </ContentPage>
