@@ -41,29 +41,7 @@ namespace PokadexApp
             
         }
 
-        public async Task<Pokemon> CreatePoke(int id)
-        {
-
-
-            string apiUrl = $"https://pokeapi.co/api/v2/pokemon/{id}";
-            HttpClient client = new HttpClient();
-
-            var json = await client.GetStringAsync(apiUrl);
-
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
-            var pokemon = JsonSerializer.Deserialize<Pokemon>(json, options);
-
-
-            pokemon.Height /= 10;
-            pokemon.Weight /= 10;
-
-            return pokemon;
-
-        }
+        
 
         public async Task AddPokemon(Pokemon pokemon)
         {

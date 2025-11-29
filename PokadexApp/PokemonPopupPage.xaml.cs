@@ -5,6 +5,31 @@ namespace PokadexApp;
 
 public partial class PokemonPopupPage : ContentPage
 {
+    Dictionary<string, int> TypeIcons = new Dictionary<string, int>
+{
+    { "normal",1   },
+    { "fire",    10 },
+    { "water",  11  },
+    { "electric",13 },
+    { "grass",   12 },
+    { "ice",    15  },
+    { "fighting", 2},
+    { "poison",  4 },
+    { "ground", 5  },
+    { "flying", 3  },
+    { "psychic",14  },
+    { "bug",    7  },
+    { "rock", 6    },
+    { "ghost",  8  },
+    { "dragon",16   },
+    { "dark",    17 },
+    { "steel",  9  },
+    { "fairy", 10001   },
+};
+
+
+
+
     Pokemon pokemon;
     StorePokemon stored = new StorePokemon();
 
@@ -31,6 +56,30 @@ public partial class PokemonPopupPage : ContentPage
         PokemonHeight.Text = $"Height: {pokemon.Height}";
         PokemonWeight.Text = $"Weight: {pokemon.Weight}";
         PokemonBaseExp.Text = $"Base Experience: {pokemon.BaseExperience}";
+
+
+        foreach (var type in pokemon.Types)
+        {
+            var typeName = type.Type.Name.ToLower();
+
+            if (TypeIcons.TryGetValue(typeName, out int iconUrl))
+            {
+                Image image = new Image
+                {
+                    Source = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iv/platinum/{iconUrl}.png",//iconUrl,
+                    HeightRequest = 50,
+                    WidthRequest = 200
+                };
+                
+
+                Types.Children.Add(image);
+                
+                
+            }
+        }
+
+
+
 
     }
 

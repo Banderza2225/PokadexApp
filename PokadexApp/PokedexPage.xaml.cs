@@ -112,7 +112,7 @@ public partial class PokedexPage : ContentPage
         });
 
         await Task.WhenAll(
-            frame.TranslateTo(0, 0, 200, Easing.CubicInOut)
+            frame.TranslateTo(0, 0, 120, Easing.CubicInOut)
 
             );
 

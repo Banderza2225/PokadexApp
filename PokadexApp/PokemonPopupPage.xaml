@@ -109,12 +109,32 @@
                           TextColor="{DynamicResource Text}"
                            FontAttributes="Bold"/>
 
-                    <Label />
+
+
+                    <Label 
+                     TextColor="{DynamicResource Text}"
+                      FontAttributes="Bold"
+                     Text ="Type(s):"
+                        HorizontalOptions="Center"
+                        FontSize="30"
+                        />
+                    <VerticalStackLayout
+                        x:Name="Types"
+                        Spacing="2"
+                        >
+                        </VerticalStackLayout>
+                    
                 </VerticalStackLayout>
 
+
+                
             </Frame>
 
-            <VerticalStackLayout>
+              
+            
+            
+            <VerticalStackLayout
+                Spacing="10">
 
                 <Button Text="Close"
                     BackgroundColor="white"
