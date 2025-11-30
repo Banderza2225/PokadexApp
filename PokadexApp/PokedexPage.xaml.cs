@@ -1,15 +1,23 @@
+using System.Collections.ObjectModel;
 using System.Text.Json;
 
 namespace PokadexApp;
 
 public partial class PokedexPage : ContentPage
 {
+
     
+
+    
+
+    public ObservableCollection<Pokemon> PokemonList { get; set; }
+        = new ObservableCollection<Pokemon>();
     StorePokemon stored = new StorePokemon();
     public PokedexPage()
     {
         InitializeComponent();
         Theme.ApplyTheme(Preferences.Get("Dark", false));
+       
         LoadPokemonRange(1, 1000);
     }
 
@@ -22,7 +30,7 @@ public partial class PokedexPage : ContentPage
         {
           var  p= await CreatePoke(id);
             await AddPokemon(p);
-           
+
         }
     }
 
@@ -49,25 +57,26 @@ public partial class PokedexPage : ContentPage
             return pokemon;
        
     }
-
     public async Task AddPokemon(Pokemon pokemon)
     {
-        
+
         var nameLabel = new Label
         {
             Text = pokemon.Name.ToUpper(),
             FontAttributes = FontAttributes.Bold,
-            FontSize = 22
+            FontSize = 22,
+            TextColor = Colors.White
         };
-        //nameLabel.SetDynamicResource(Label.TextColorProperty, "Text");
+
 
         var idLabel = new Label
         {
-            Text = $"ID: {pokemon.Id}"
+            Text = $"ID: {pokemon.Id}",
+            TextColor = Colors.White
         };
-       // idLabel.SetDynamicResource(Label.TextColorProperty, "Text");
 
-        
+
+
         var frame = new Frame
         {
             CornerRadius = 20,
@@ -75,7 +84,7 @@ public partial class PokedexPage : ContentPage
             Padding = 10,
             BackgroundColor = Color.FromArgb("#555555")
         };
-        
+
         frame.Content = new HorizontalStackLayout
         {
             Spacing = 10,
@@ -99,7 +108,7 @@ public partial class PokedexPage : ContentPage
         }
         };
 
-        
+        //frame.SetDynamicResource(Frame.BackgroundColorProperty, "Accent1");
         var tap = new TapGestureRecognizer();
         tap.Tapped += (s, e) => ShowPokemonPopup(pokemon);
         frame.GestureRecognizers.Add(tap);
@@ -113,11 +122,9 @@ public partial class PokedexPage : ContentPage
         });
 
         await Task.WhenAll(
-            frame.TranslateTo(0, 0, 90, Easing.CubicInOut)
+            frame.TranslateTo(0, 0, 120, Easing.CubicInOut)
 
             );
-
-
 
 
     }

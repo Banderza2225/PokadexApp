@@ -4,16 +4,18 @@
              x:Class="PokadexApp.PokedexPage"
              Title=""
              BackgroundColor="{DynamicResource Theme}">
-   
 
 
     <ScrollView>
-        <VerticalStackLayout x:Name="PokemonListLayout"
-                             Spacing="10"
-                             Padding="10,50,10,10"
-                             
-                             >
-                             
+        <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
+
+
+            
+
+            <VerticalStackLayout x:Name="PokemonListLayout"
+                         Spacing="10">
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
