@@ -14,12 +14,12 @@ namespace PokadexApp
             {
                 Application.Current.Resources["Theme"] = Color.FromArgb("#EEEEEE");
                 Application.Current.Resources["Text"] = Color.FromArgb("#000000");
-                Application.Current.Resources["Accent1"] = Color.FromArgb("#DDDDDD");
+                Application.Current.Resources["Accent1"] = Color.FromArgb("#d3d3d3");
             }
             else if (darkMode == true)
             {
                 Application.Current.Resources["Theme"] = Color.FromArgb("#333333");
-                Application.Current.Resources["Text"] = Color.FromArgb("#ffffff");
+                Application.Current.Resources["Text"] = Color.FromArgb("#FFFFFF");
                 Application.Current.Resources["Accent1"] = Color.FromArgb("#444444");
             }
         }

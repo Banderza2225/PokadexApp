@@ -22,7 +22,7 @@ namespace PokadexApp
             File.WriteAllText(path, json);
         }
 
-        
+
 
 
         public void SavePokemonFavourite(Pokemon pokemon)
@@ -93,5 +93,31 @@ namespace PokadexApp
             }
             return viewedPokemon;
         }
+
+
+
+
+        public void EraseHistory()
+        {
+            string appDataDirectory = FileSystem.AppDataDirectory;
+            var files = Directory.GetFiles(appDataDirectory, "*V.json");
+            foreach (var file in files)
+            {
+                File.Delete(file);
+            }
+        }
+
+        public void EraseFavourites()
+        {
+            string appDataDirectory = FileSystem.AppDataDirectory;
+            var files = Directory.GetFiles(appDataDirectory, "*F.json");
+            foreach (var file in files)
+            {
+                File.Delete(file);
+            }
+        }
+
+
+
     }
 }

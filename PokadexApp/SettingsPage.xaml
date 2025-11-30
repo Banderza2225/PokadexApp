@@ -6,12 +6,31 @@
              x:Name="settingsPage"
              BackgroundColor="{DynamicResource Theme}">
              
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        
+        Spacing="10">
         <Button
             x:Name="darkB"
             Text="Turn on Darkmode"
-            Clicked="ApplyTheme"        
-            BackgroundColor="gray"
+            Clicked="ApplyTheme"   
+            TextColor="{DynamicResource Text}"
+            BackgroundColor="{DynamicResource Accent1}"
             />
+        <Button
+            x:Name="History"
+            Text="View History"
+            Clicked="ViewHistory"   
+            TextColor="{DynamicResource Text}"
+            BackgroundColor="{DynamicResource Accent1}"
+            />
+
+        <Button
+            x:Name="Clear"
+            Text="Clear Favourite Pokemon"
+            Clicked="ClearFavourites"   
+            TextColor="{DynamicResource Text}"
+            BackgroundColor="{DynamicResource Accent1}"
+    />
+
     </VerticalStackLayout>
 </ContentPage>

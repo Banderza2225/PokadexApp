@@ -4,8 +4,8 @@ namespace PokadexApp;
 
 public partial class SettingsPage : ContentPage
 {
-
-	 bool DarkMode=Preferences.Get("Dark", false);
+    StorePokemon storage = new StorePokemon();
+    bool DarkMode=Preferences.Get("Dark", false);
     public SettingsPage()
 	{
 		InitializeComponent();
@@ -24,7 +24,7 @@ public partial class SettingsPage : ContentPage
             DarkMode = false;
             Preferences.Set("Dark", true);
         }
-        else
+        else if(DarkMode==false)
         {
             DarkMode = true;
             Preferences.Set("Dark", false);
@@ -33,6 +33,24 @@ public partial class SettingsPage : ContentPage
 
 
         Theme.ApplyTheme(Preferences.Get("Dark", false));
+
+
+    }
+
+    public async void ViewHistory(object sender, EventArgs e)
+    {
+
+        await Navigation.PushModalAsync(new History());
+
+        
+
+    }
+
+    public async void ClearFavourites(object sender, EventArgs e)
+    {
+
+        storage.EraseFavourites();
+
 
 
     }

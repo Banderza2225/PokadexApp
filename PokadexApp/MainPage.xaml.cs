@@ -1,6 +1,7 @@
 ﻿
 
-using System.Text.Json;
+using Microsoft.Maui.Controls;
+
 
 namespace PokadexApp
 {
@@ -94,7 +95,7 @@ namespace PokadexApp
         }
             };
 
-
+            //frame.SetDynamicResource(Frame.BackgroundColorProperty, "Accent1");
             var tap = new TapGestureRecognizer();
             tap.Tapped += (s, e) => ShowPokemonPopup(pokemon);
             frame.GestureRecognizers.Add(tap);
@@ -104,7 +105,7 @@ namespace PokadexApp
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                PokemonListLayout.Children.Add(frame);
+                 PokemonListLayout.Children.Add(frame);
             });
 
             await Task.WhenAll(

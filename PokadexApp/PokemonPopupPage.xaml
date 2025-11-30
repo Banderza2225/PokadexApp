@@ -72,8 +72,9 @@
 
                 </Grid>
             </Frame>
-
             
+            
+
             <Label x:Name="PokemonName"
                    FontSize="28"
                    FontAttributes="Bold"
@@ -84,8 +85,23 @@
                    FontSize="18"
                    TextColor="{DynamicResource Text}"
                    HorizontalOptions="Center"/>
+            <Frame
+                CornerRadius="15"
+                   Padding="15"
+                   HasShadow="True"
+                   BackgroundColor="{DynamicResource Accent1}"
+                   HorizontalOptions="Fill"
+                  WidthRequest="200"
+                  
+                
+                >
+                <VerticalStackLayout
+                x:Name="Types"
+                Spacing="2"
+                >
+                </VerticalStackLayout>
+            </Frame>
 
-            
             <Frame CornerRadius="15"
                    Padding="15"
                    HasShadow="True"
@@ -111,18 +127,8 @@
 
 
 
-                    <Label 
-                     TextColor="{DynamicResource Text}"
-                      FontAttributes="Bold"
-                     Text ="Type(s):"
-                        HorizontalOptions="Center"
-                        FontSize="30"
-                        />
-                    <VerticalStackLayout
-                        x:Name="Types"
-                        Spacing="2"
-                        >
-                        </VerticalStackLayout>
+                     
+                    
                     
                 </VerticalStackLayout>
 

@@ -1,73 +1,69 @@
-using System.Text.Json;
-
 namespace PokadexApp;
 
-public partial class PokedexPage : ContentPage
+public partial class History : ContentPage
 {
-    
-    StorePokemon stored = new StorePokemon();
-    public PokedexPage()
-    {
-        InitializeComponent();
-        Theme.ApplyTheme(Preferences.Get("Dark", false));
-        LoadPokemonRange(1, 1000);
+    List<Pokemon> Viewed = new List<Pokemon>();
+    StorePokemon storage = new StorePokemon();
+    public History()
+	{
+		InitializeComponent();
+        LoadPokemon();
+        Theme.ApplyTheme(Preferences.Get("Dark",false));
     }
 
-   
-    
 
-    public  async Task   LoadPokemonRange(int start, int end)
+    public async Task LoadPokemon()
     {
-        for (int id = start; id <= end; id++)
+
+        Viewed = storage.LoadViewedPokemon();
+
+        foreach (var item in Viewed)
         {
-          var  p= await CreatePoke(id);
-            await AddPokemon(p);
-           
+
+
+
+            await AddPokemon(item);
         }
+
+
     }
 
-     public async Task<Pokemon> CreatePoke(int id)
+    public void EraseHistory(object sender, EventArgs e)
     {
-        
-       
-            string apiUrl = $"https://pokeapi.co/api/v2/pokemon/{id}";
-            HttpClient client = new HttpClient();
+        storage.EraseHistory();
+    }
 
-            var json =  await client.GetStringAsync(apiUrl);
+    public void CloseHistory(object sender, EventArgs e)
+	{
+		Navigation.PopModalAsync();
+    }
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
-            var pokemon = JsonSerializer.Deserialize<Pokemon>(json, options);
-            
-
-            pokemon.Height /= 10;
-            pokemon.Weight /= 10;
-
-            return pokemon;
-       
+    private async void ReloadPokemon(object sender, EventArgs e)
+    {
+        PokemonListLayout.Children.Clear();
+        await LoadPokemon();
     }
 
     public async Task AddPokemon(Pokemon pokemon)
     {
-        
+
         var nameLabel = new Label
         {
             Text = pokemon.Name.ToUpper(),
             FontAttributes = FontAttributes.Bold,
-            FontSize = 22
+            FontSize = 22,
+            TextColor = Colors.White
         };
-        //nameLabel.SetDynamicResource(Label.TextColorProperty, "Text");
+
 
         var idLabel = new Label
         {
-            Text = $"ID: {pokemon.Id}"
+            Text = $"ID: {pokemon.Id}",
+            TextColor = Colors.White
         };
-       // idLabel.SetDynamicResource(Label.TextColorProperty, "Text");
 
-        
+
+
         var frame = new Frame
         {
             CornerRadius = 20,
@@ -75,7 +71,7 @@ public partial class PokedexPage : ContentPage
             Padding = 10,
             BackgroundColor = Color.FromArgb("#555555")
         };
-        
+
         frame.Content = new HorizontalStackLayout
         {
             Spacing = 10,
@@ -99,7 +95,7 @@ public partial class PokedexPage : ContentPage
         }
         };
 
-        
+
         var tap = new TapGestureRecognizer();
         tap.Tapped += (s, e) => ShowPokemonPopup(pokemon);
         frame.GestureRecognizers.Add(tap);
@@ -113,22 +109,25 @@ public partial class PokedexPage : ContentPage
         });
 
         await Task.WhenAll(
-            frame.TranslateTo(0, 0, 90, Easing.CubicInOut)
+            frame.TranslateTo(0, 0, 120, Easing.CubicInOut)
 
             );
 
 
-
-
     }
-
 
     async void ShowPokemonPopup(Pokemon pokemon)
     {
         await Navigation.PushModalAsync(new PokemonPopupPage(pokemon));
+        
 
-        stored.SavePokemonVeiwed(pokemon);
     }
 
+    public async void DeleteHistory(object sender, EventArgs e)
+    {
+       storage.EraseHistory();
 
+        PokemonListLayout.Children.Clear();
+        await LoadPokemon();
+    }
 }
