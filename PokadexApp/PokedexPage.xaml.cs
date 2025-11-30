@@ -6,19 +6,22 @@ namespace PokadexApp;
 public partial class PokedexPage : ContentPage
 {
 
-    
+     bool isLoading = false;
+    int batchSize = 1; 
+     int nextIdToLoad = 1; 
+
+
 
     
-
-    public ObservableCollection<Pokemon> PokemonList { get; set; }
-        = new ObservableCollection<Pokemon>();
     StorePokemon stored = new StorePokemon();
     public PokedexPage()
     {
         InitializeComponent();
         Theme.ApplyTheme(Preferences.Get("Dark", false));
+        LoadPokemonRange(1,50);
+        Scroll.Scrolled += OnScroll;
+
        
-        LoadPokemonRange(1, 1000);
     }
 
    
@@ -128,6 +131,24 @@ public partial class PokedexPage : ContentPage
 
 
     }
+
+
+    private async void OnScroll(object sender, ScrolledEventArgs e)
+    {
+        double scrollY = e.ScrollY;
+        double scrollViewHeight = Scroll.Height;
+        double contentHeight = PokemonListLayout.Height;
+
+        
+        if (!isLoading && scrollY + scrollViewHeight + 500 >= contentHeight)
+        {
+            isLoading = true;
+            await LoadPokemonRange(nextIdToLoad, nextIdToLoad + batchSize - 1);
+            nextIdToLoad += batchSize;
+            isLoading = false;
+        }
+    }
+
 
 
     async void ShowPokemonPopup(Pokemon pokemon)
