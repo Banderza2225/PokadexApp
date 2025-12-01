@@ -46,6 +46,15 @@ public partial class SettingsPage : ContentPage
 
     }
 
+    public async void ViewFavourites(object sender, EventArgs e)
+    {
+
+        await Navigation.PushModalAsync(new MainPage());
+
+
+
+    }
+
     public async void ClearFavourites(object sender, EventArgs e)
     {
 

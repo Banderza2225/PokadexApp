@@ -5,7 +5,32 @@
              Title=""
              
               BackgroundColor="{DynamicResource Theme}">
-    <VerticalStackLayout>
+
+    <AbsoluteLayout>
+        <Button
+            Text="Add Team"
+            BackgroundColor="{DynamicResource Accent1 }"
+            TextColor="{DynamicResource Text}"
+            Clicked="AddTeam"
+            AbsoluteLayout.LayoutBounds="50,100,150,50"
+            AbsoluteLayout.LayoutFlags="None"
+            />
+
+        <ScrollView x:Name="Scroll">
+
         
-    </VerticalStackLayout>
+        <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
+
+
+
+
+            <VerticalStackLayout x:Name="PokemonListLayout"
+                     Spacing="10">
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+  </AbsoluteLayout>
 </ContentPage>

@@ -5,7 +5,7 @@ using Microsoft.Maui.Controls;
 
 namespace PokadexApp
 {
-
+   
 
     public partial class MainPage : ContentPage
     {
@@ -131,8 +131,17 @@ namespace PokadexApp
             await LoadPokemon();  
         }
 
+        public void CloseHistory(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
+        }
+        public async void DeleteHistory(object sender, EventArgs e)
+        {
+            stored.EraseFavourites();
 
-
+            PokemonListLayout.Children.Clear();
+            await LoadPokemon();
+        }
 
     }
 }

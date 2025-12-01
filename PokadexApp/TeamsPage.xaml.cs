@@ -10,4 +10,9 @@ public partial class TeamsPage : ContentPage
 
         Theme.ApplyTheme(Preferences.Get("Dark", false));
     }
+
+    public void AddTeam(object sender ,EventArgs e ) { 
+    
+    
+    }
 }

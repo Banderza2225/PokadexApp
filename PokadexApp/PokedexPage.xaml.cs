@@ -7,8 +7,8 @@ public partial class PokedexPage : ContentPage
 {
 
      bool isLoading = false;
-    int batchSize = 1; 
-     int nextIdToLoad = 1; 
+    int batchSize = 10; 
+     int nextIdToLoad = 50; 
 
 
 
@@ -18,13 +18,17 @@ public partial class PokedexPage : ContentPage
     {
         InitializeComponent();
         Theme.ApplyTheme(Preferences.Get("Dark", false));
-        LoadPokemonRange(1,50);
-        Scroll.Scrolled += OnScroll;
+        LoadInitialPokemon();
 
        
     }
 
-   
+    public async Task LoadInitialPokemon() {
+
+        await LoadPokemonRange(1, 50);
+        Scroll.Scrolled += OnScroll;
+
+    }
     
 
     public  async Task   LoadPokemonRange(int start, int end)

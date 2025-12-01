@@ -10,10 +10,10 @@
         <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
 
 
-            
+
 
             <VerticalStackLayout x:Name="PokemonListLayout"
-                         Spacing="10">
+                     Spacing="10">
             </VerticalStackLayout>
 
         </VerticalStackLayout>

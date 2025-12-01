@@ -12,14 +12,29 @@
     <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
 
-            
-            <Button
-            Text="Reload Pokemon"
-            Clicked="ReloadPokemon" 
-                HorizontalOptions="Center"
-                />
-            
-           
+
+            <HorizontalStackLayout>
+
+
+                <Button
+ Text="Close"
+ Clicked="CloseHistory" 
+ HorizontalOptions="Center"
+        TextColor="{DynamicResource Text}"
+BackgroundColor="{DynamicResource Accent1}"
+  />
+
+                <Button
+         Text="Delete Favourites"
+         Clicked="DeleteHistory" 
+         HorizontalOptions="Center"
+                TextColor="{DynamicResource Text}"
+        BackgroundColor="{DynamicResource Accent1}"
+          />
+
+            </HorizontalStackLayout>
+
+
             <VerticalStackLayout x:Name="PokemonListLayout"
                              Spacing="10">
             </VerticalStackLayout>
