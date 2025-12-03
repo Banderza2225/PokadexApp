@@ -6,14 +6,13 @@
              
               BackgroundColor="{DynamicResource Theme}">
 
-    <AbsoluteLayout>
+    <VerticalStackLayout>
         <Button
-            Text="Add Team"
+            Text="Create new Team"
             BackgroundColor="{DynamicResource Accent1 }"
             TextColor="{DynamicResource Text}"
-            Clicked="AddTeam"
-            AbsoluteLayout.LayoutBounds="50,100,150,50"
-            AbsoluteLayout.LayoutFlags="None"
+            Clicked="Create"
+            
             />
 
         <ScrollView x:Name="Scroll">
@@ -32,5 +31,5 @@
     </ScrollView>
 
 
-  </AbsoluteLayout>
+  </VerticalStackLayout>
 </ContentPage>

@@ -36,7 +36,7 @@ public partial class SettingsPage : ContentPage
 
 
     }
-
+     
     public async void ViewHistory(object sender, EventArgs e)
     {
 
@@ -54,7 +54,7 @@ public partial class SettingsPage : ContentPage
 
 
     }
-
+     
     public async void ClearFavourites(object sender, EventArgs e)
     {
 

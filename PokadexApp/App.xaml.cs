@@ -2,10 +2,13 @@
 {
     public partial class App : Application
     {
+
+          
         public App()
         {
             InitializeComponent();
-           // ApplyTheme();
+            // ApplyTheme();
+            TeamManager.LoadTeams();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
