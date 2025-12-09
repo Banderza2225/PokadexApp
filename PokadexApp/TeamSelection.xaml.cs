@@ -1,39 +1,19 @@
- 
-
 namespace PokadexApp;
 
-public partial class TeamsPage : ContentPage
+public partial class TeamSelection : ContentPage
 {
-
+    Pokemon pokemon;
     TeamManager TeamManager = new TeamManager();
-    TeamSelection Ts;
-    public TeamsPage()
-    {
+    public TeamSelection(Pokemon pokemon)
+	{
+        this.pokemon = pokemon;
+
         InitializeComponent();
-        TeamManager.LoadTeams();
-        LoadTeams();
-        Theme.ApplyTheme(Preferences.Get("Dark", false));
-    }
-
-
-    public async void Create(object sender, EventArgs e)
-    {
-        string teamName = await DisplayPromptAsync("Create Team", "Enter a team name:");
-
-        while (teamName == "")
-        {
-            teamName = await DisplayPromptAsync("Create Team", "Enter a team name:");
-
-        }
-       
-            PokemonTeam Team = new PokemonTeam(teamName);
-
-            TeamManager.AddTeam(Team);
-            PokemonListLayout.Children.Clear();
-            LoadTeams();
-
         
+            LoadTeams();
     }
+
+
     public void LoadTeams()
     {
 
@@ -69,23 +49,14 @@ public partial class TeamsPage : ContentPage
                     HeightRequest = 120
 
                 };
-
-                if (DeviceInfo.Platform == DevicePlatform.Android)
-                {
-                    img.WidthRequest = 50;
-                    img.HeightRequest = 50;
-                }
                 layout.Children.Add(img);
             }
             frame.Content = layout;
             var tap = new TapGestureRecognizer();
-
-
-            tap.Tapped += (s, e) => DisplayTeam(team);
-            frame.GestureRecognizers.Add(tap);
-
-
             
+
+                tap.Tapped += (s, e) => AddPokemonToTeam(team);
+                frame.GestureRecognizers.Add(tap);
             
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -93,16 +64,21 @@ public partial class TeamsPage : ContentPage
             });
         }
 
-       
+
 
     }
 
 
-
-    public async void DisplayTeam(PokemonTeam team)
+    public async void AddPokemonToTeam(PokemonTeam team)
     {
-        //await Navigation.PushModalAsync(new );
+        team.Team.Add(pokemon);
+        TeamManager.SaveTeams();
+        TeamManager.LoadTeams();
 
-        
     }
+
+    public async void ClosePage(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
+    }   
 }

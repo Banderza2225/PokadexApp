@@ -5,8 +5,8 @@
              Title=""
              
               BackgroundColor="{DynamicResource Theme}">
-
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
         <Button
             Text="Create new Team"
             BackgroundColor="{DynamicResource Accent1 }"
@@ -15,7 +15,7 @@
             
             />
 
-        <ScrollView x:Name="Scroll">
+       
 
         
         <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
@@ -28,8 +28,9 @@
             </VerticalStackLayout>
 
         </VerticalStackLayout>
-    </ScrollView>
+   
 
 
   </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

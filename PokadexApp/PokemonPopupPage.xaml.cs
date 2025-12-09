@@ -104,27 +104,17 @@ public partial class PokemonPopupPage : ContentPage
             stored.SavePokemonFavourite(pokemon);
 
         }
-        //IsFavourite();
+        
 
     }
 
 
-    // private void IsFavourite() {
+    private async void  OpenTeamsSelection(object sender, EventArgs e)
+    {
+        await Navigation.PushModalAsync(new TeamSelection( pokemon));
 
-    //   List<Pokemon> favs = stored.LoadFavouritePokemon();
-    //    if (favs.Any(p => p.Id == pokemon.Id))
-    //    {
-    //        B.Text= "Remove from Favourites";
-
-    //    }
-    //    else
-    //    {
-    //        B.Text = " Favourite";
-
-    //  }
+        stored.SavePokemonVeiwed(pokemon);
 
 
-
-    //}
-    //
+    }
 }

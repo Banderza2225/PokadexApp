@@ -19,12 +19,13 @@ public partial class PokedexPage : ContentPage
         InitializeComponent();
         Theme.ApplyTheme(Preferences.Get("Dark", false));
         LoadInitialPokemon();
+        //LoadPokemonRange(1, 50);
 
-       
     }
 
     public async Task LoadInitialPokemon() {
 
+        await Task.Delay(50);
         await LoadPokemonRange(1, 50);
         Scroll.Scrolled += OnScroll;
 
