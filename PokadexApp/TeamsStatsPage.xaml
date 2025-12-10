@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PokadexApp"
+             x:Class="PokadexApp.TeamsStatsPage"
+             BackgroundColor="{DynamicResource PageBackground}"
+             Title="Team Stats">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="20">
+
+           
+            <VerticalStackLayout x:Name="TeamHeader" Spacing="5">
+                <Label x:Name="TeamNameLabel" Text="Team Name" FontSize="26" FontAttributes="Bold" TextColor="{DynamicResource Text}" />
+                <Label x:Name="TeamSizeLabel" Text="0/6 Pokémon" FontSize="18" TextColor="{DynamicResource Text}" />
+            </VerticalStackLayout>
+
+          
+            <VerticalStackLayout x:Name="PokemonListLayout" Spacing="15"/>
+
+           
+            <Button Text="Close" BackgroundColor="{DynamicResource Accent1}" TextColor="White" CornerRadius="10" HeightRequest="50" Clicked="Close"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

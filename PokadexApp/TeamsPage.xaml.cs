@@ -5,13 +5,14 @@ namespace PokadexApp;
 public partial class TeamsPage : ContentPage
 {
 
-    TeamManager TeamManager = new TeamManager();
+    
     TeamSelection Ts;
     public TeamsPage()
     {
         InitializeComponent();
         TeamManager.LoadTeams();
         LoadTeams();
+       
         Theme.ApplyTheme(Preferences.Get("Dark", false));
     }
 
@@ -36,7 +37,7 @@ public partial class TeamsPage : ContentPage
     }
     public void LoadTeams()
     {
-
+       
         foreach (PokemonTeam team in TeamManager.Teams)
         {
             Frame frame = new Frame
@@ -48,6 +49,7 @@ public partial class TeamsPage : ContentPage
             };
 
             HorizontalStackLayout layout = new HorizontalStackLayout();
+            HorizontalStackLayout layout1 = new HorizontalStackLayout();
 
             Label label = new Label
             {
@@ -77,16 +79,25 @@ public partial class TeamsPage : ContentPage
                 }
                 layout.Children.Add(img);
             }
+            
+
+            
+
+
             frame.Content = layout;
             var tap = new TapGestureRecognizer();
+            var tap1 = new TapGestureRecognizer { NumberOfTapsRequired=3};
 
 
             tap.Tapped += (s, e) => DisplayTeam(team);
+            tap1.Tapped += (s, e) => DeleteTeam(team);
+
+
+
             frame.GestureRecognizers.Add(tap);
 
+            
 
-            
-            
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 PokemonListLayout.Children.Add(frame);
@@ -97,11 +108,27 @@ public partial class TeamsPage : ContentPage
 
     }
 
+    public async void DeleteTeam(PokemonTeam team)
+    {
 
+       
+        bool confirm = await DisplayAlert("Delete Team", $"Are you sure you want to delete the team '{team.Name}'?", "Yes", "No");
+        if (confirm)
+        {
+            TeamManager.RemoveTeam(team);
+            PokemonListLayout.Children.Clear();
+            LoadTeams();
+        }
+    }
+    public async void Reload(object sender,EventArgs e) { 
+        PokemonListLayout.Children.Clear();
+        LoadTeams();
+    }
+   
 
     public async void DisplayTeam(PokemonTeam team)
     {
-        //await Navigation.PushModalAsync(new );
+        await Navigation.PushModalAsync(new TeamsStatsPage(team));
 
         
     }

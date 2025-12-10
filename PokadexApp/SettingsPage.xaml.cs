@@ -2,10 +2,12 @@
 
 namespace PokadexApp;
 
+
 public partial class SettingsPage : ContentPage
 {
     StorePokemon storage = new StorePokemon();
     bool DarkMode=Preferences.Get("Dark", false);
+    TeamManager TeamManager = new TeamManager();
     public SettingsPage()
 	{
 		InitializeComponent();
@@ -45,6 +47,17 @@ public partial class SettingsPage : ContentPage
         
 
     }
+
+    public async void ClearTeams(object sender, EventArgs e)
+   {
+       TeamManager.Teams.Clear();
+      await TeamManager.SaveTeams();
+       await TeamManager.LoadTeams();
+
+
+    }
+
+
 
     public async void ViewFavourites(object sender, EventArgs e)
     {

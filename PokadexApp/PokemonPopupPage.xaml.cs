@@ -56,7 +56,7 @@ public partial class PokemonPopupPage : ContentPage
         PokemonHeight.Text = $"Height: {pokemon.Height}";
         PokemonWeight.Text = $"Weight: {pokemon.Weight}";
         PokemonBaseExp.Text = $"Base Experience: {pokemon.BaseExperience}";
-
+        StatsDisplay();
 
         foreach (var type in pokemon.Types)
         {
@@ -108,7 +108,65 @@ public partial class PokemonPopupPage : ContentPage
 
     }
 
+    private void StatsDisplay()
+    {
 
+
+        var layout = new VerticalStackLayout {  };
+        layout.Children.Add(CreateStatBar("HP", pokemon.Stats.First(s => s.Stat.Name == "hp").BaseStat, 255));
+        layout.Children.Add(CreateStatBar("Attack", pokemon.Stats.First(s => s.Stat.Name == "attack").BaseStat, 190));
+        layout.Children.Add(CreateStatBar("Defense", pokemon.Stats.First(s => s.Stat.Name == "defense").BaseStat, 250));
+        layout.Children.Add(CreateStatBar("Sp. Atk", pokemon.Stats.First(s => s.Stat.Name == "special-attack").BaseStat, 194));
+        layout.Children.Add(CreateStatBar("Sp. Def", pokemon.Stats.First(s => s.Stat.Name == "special-defense").BaseStat, 250));
+        layout.Children.Add(CreateStatBar("Speed", pokemon.Stats.First(s => s.Stat.Name == "speed").BaseStat, 180));
+
+        Frame2.Children.Add(layout);
+    }
+
+
+    private VerticalStackLayout CreateStatBar(string statName, int value, int maxValue)
+    {
+
+        double percentage = (double)value / maxValue;
+
+        var barLayout = new VerticalStackLayout { Spacing = 2 };
+
+
+        barLayout.Children.Add(new Label
+        {
+            Text = $"{statName}: {value}",
+            TextColor = Colors.White,
+            FontSize = 14
+        });
+
+
+        var barBackground = new BoxView
+        {
+            Color = Colors.Gray,
+            HeightRequest = 10,
+            CornerRadius = 5,
+            WidthRequest = 200
+        };
+
+        var barForeground = new BoxView
+        {
+            Color = Colors.LimeGreen,
+            HeightRequest = 10,
+            CornerRadius = 5,
+            WidthRequest = 200 * percentage
+        };
+
+
+        var grid = new Grid { ColumnSpacing = 0 };
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+        grid.Children.Add(barBackground);
+        grid.Children.Add(barForeground);
+
+        barLayout.Children.Add(grid);
+
+        barLayout.HorizontalOptions = LayoutOptions.Center;
+        return barLayout;
+    }
     private async void  OpenTeamsSelection(object sender, EventArgs e)
     {
         await Navigation.PushModalAsync(new TeamSelection( pokemon));

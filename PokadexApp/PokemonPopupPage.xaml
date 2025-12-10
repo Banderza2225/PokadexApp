@@ -108,32 +108,34 @@
                    BackgroundColor="{DynamicResource Accent1}"
                    HorizontalOptions="Fill"
                    MaximumWidthRequest="500"
+                   
                    >
 
-                <VerticalStackLayout Spacing="8">
+                <VerticalStackLayout Spacing="8" x:Name="Stats">
                     <Label x:Name="PokemonHeight"
                            TextColor="{DynamicResource Text}"
-                           FontAttributes="Bold"
+                           
                            
                            />
 
                     <Label x:Name="PokemonWeight"
                            TextColor="{DynamicResource Text}"
-                           FontAttributes="Bold"/>
+                           />
 
                     <Label x:Name="PokemonBaseExp"
                           TextColor="{DynamicResource Text}"
-                           FontAttributes="Bold"/>
+                           />
+
+
+                    <VerticalStackLayout x:Name="Frame2">
+                    </VerticalStackLayout>
 
 
 
-                     
-                    
-                    
                 </VerticalStackLayout>
 
-
                 
+
             </Frame>
 
               

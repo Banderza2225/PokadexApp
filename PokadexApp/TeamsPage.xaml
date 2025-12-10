@@ -6,19 +6,29 @@
              
               BackgroundColor="{DynamicResource Theme}">
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="10">
         <Button
+            
             Text="Create new Team"
             BackgroundColor="{DynamicResource Accent1 }"
             TextColor="{DynamicResource Text}"
             Clicked="Create"
             
             />
+            <Button
+                
+          Text="Reload"
+         BackgroundColor="{DynamicResource Accent1 }"
+            TextColor="{DynamicResource Text}"
+           Clicked="Reload"
+                
+    
+    />
 
-       
 
-        
-        <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
+
+
+            <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
 
 
 

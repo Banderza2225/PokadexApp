@@ -12,7 +12,7 @@ namespace PokadexApp
 
         private static string FilePath => Path.Combine(FileSystem.AppDataDirectory, "teams.json");
 
-        public static  List<PokemonTeam> Teams { get; set; }
+        public static List<PokemonTeam> Teams { get; private set; } = new List<PokemonTeam>();
 
         public static async Task LoadTeams()
         {
@@ -45,24 +45,24 @@ namespace PokadexApp
 
         }
 
-        public async void AddTeam(PokemonTeam Team) { 
+        public static async void AddTeam(PokemonTeam Team) { 
         
         Teams.Add(Team);
         await SaveTeams();
-        
-        
+        await LoadTeams();
+
         }
 
-        public async void RemoveTeam(PokemonTeam Team)
+        public static async void RemoveTeam(PokemonTeam Team)
         {
 
             Teams.Remove(Team);
             await SaveTeams();
-
+            await LoadTeams();  
 
         }
 
-
+        
 
     }
 }
