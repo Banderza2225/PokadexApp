@@ -7,12 +7,24 @@
 
 
     <ScrollView x:Name="Scroll">
+
+        
+
         <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
 
 
+            <VerticalStackLayout>
+                <HorizontalStackLayout Spacing="5">
+                <SearchBar x:Name="PokemonSearchBar" Placeholder="Enter Pokémon name or id " WidthRequest="300"/>
+                <Button Text="Search" Clicked="OnSearch"/>
+                
+            </HorizontalStackLayout>
 
-
-            <VerticalStackLayout x:Name="PokemonListLayout"
+                <Picker x:Name="TypePicker"
+                    Title="Search by Type"
+                               />
+            </VerticalStackLayout>
+                    <VerticalStackLayout x:Name="PokemonListLayout"
                      Spacing="10">
             </VerticalStackLayout>
 

@@ -1,130 +1,213 @@
-using Microsoft.Maui.Controls;
+
 
 namespace PokadexApp;
 
 public partial class TeamsStatsPage : ContentPage
 {
-    private PokemonTeam _team;
+    private PokemonTeam team;
+    
 
     public TeamsStatsPage(PokemonTeam team)
     {
         InitializeComponent();
-        _team = team;
+        this.team = team;
 
-        DisplayTeam();
+        RenderTeam();
+        RenderStatsComparison();
     }
 
-    private void DisplayTeam()
+    private void RenderTeam()
     {
-       
-        TeamNameLabel.Text = _team.Name;
-        TeamSizeLabel.Text = $"{_team.Team.Count}/6 Pokémon";
+        
+            TeamNameLabel.Text = $"{team.Name} ({team.Team.Count}/6)";
 
-        PokemonListLayout.Children.Clear();
+        TeamGrid.Children.Clear();
 
-        foreach (var pokemon in _team.Team)
+        for (int i = 0; i < 6; i++)
         {
-           
-            var frame = new Frame
+            int row = i / 3;
+            int col = i % 3;
+
+            if (i < team.Team.Count)
             {
-                CornerRadius = 15,
-                Padding = 10,
-                BackgroundColor = Color.FromArgb("#555555")
-            };
-
-            var layout = new HorizontalStackLayout { Spacing = 15 };
-
-            
-            var sprite = new Image
+                var pokemon = team.Team[i];
+                TeamGrid.Add(CreatePokemonSlot(pokemon, i), col, row);
+            }
+            else
             {
-                Source = pokemon.Sprites.FrontDefault,
-                WidthRequest = 80,
-                HeightRequest = 80
-            };
-
-            
-            var infoLayout = new VerticalStackLayout { Spacing = 5 };
-
-            
-            infoLayout.Children.Add(new Label
-            {
-                Text = $"{pokemon.Name.ToUpper()} (ID: {pokemon.Id})",
-                FontAttributes = FontAttributes.Bold,
-                FontSize = 20,
-                TextColor = Colors.White
-            });
-
-           
-            var types = string.Join(", ", pokemon.Types.Select(t => t.Type.Name.ToUpper()));
-            infoLayout.Children.Add(new Label
-            {
-                Text = $"Type: {types}",
-                TextColor = Colors.White,
-                FontSize = 16
-            });
-
-            
-            infoLayout.Children.Add(CreateStatBar("HP", pokemon.Stats.First(s => s.Stat.Name == "hp").BaseStat, 255));
-            infoLayout.Children.Add(CreateStatBar("Attack", pokemon.Stats.First(s => s.Stat.Name == "attack").BaseStat, 190));
-            infoLayout.Children.Add(CreateStatBar("Defense", pokemon.Stats.First(s => s.Stat.Name == "defense").BaseStat, 250));
-            infoLayout.Children.Add(CreateStatBar("Sp. Atk", pokemon.Stats.First(s => s.Stat.Name == "special-attack").BaseStat, 194));
-            infoLayout.Children.Add(CreateStatBar("Sp. Def", pokemon.Stats.First(s => s.Stat.Name == "special-defense").BaseStat, 250));
-            infoLayout.Children.Add(CreateStatBar("Speed", pokemon.Stats.First(s => s.Stat.Name == "speed").BaseStat, 180));
-
-            layout.Children.Add(sprite);
-            layout.Children.Add(infoLayout);
-
-            frame.Content = layout;
-
-            PokemonListLayout.Children.Add(frame);
+                TeamGrid.Add(CreateEmptySlot(), col, row);
+            }
         }
     }
 
-    private VerticalStackLayout CreateStatBar(string statName, int value, int maxValue)
-    { 
-       
-        double percentage = (double)value / maxValue;
-
-        var barLayout = new VerticalStackLayout { Spacing = 2 };
-
-       
-        barLayout.Children.Add(new Label
+    private Frame CreatePokemonSlot(Pokemon pkm, int index)
+    {
+        var frame = new Frame
         {
-            Text = $"{statName}: {value}",
-            TextColor = Colors.White,
-            FontSize = 14
+            CornerRadius = 15,
+            Padding = 10,
+            BackgroundColor = Color.FromArgb("#555555"),
+            HeightRequest = 200,
+        };
+
+        var layout = new VerticalStackLayout
+        {
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        layout.Children.Add(new Image
+        {
+            Source = pkm.Sprites.FrontDefault,
+            WidthRequest = 80,
+            HeightRequest = 80
         });
 
-        
-        var barBackground = new BoxView
+        layout.Children.Add(new Label
         {
-            Color = Colors.Gray,
-            HeightRequest = 10,
-            CornerRadius = 5,
-            WidthRequest = 200
+            Text = pkm.Name.ToUpper(),
+            FontAttributes = FontAttributes.Bold,
+            HorizontalOptions = LayoutOptions.Center,
+            TextColor = Colors.White
+        });
+
+        var deleteBtn = new Button
+        {
+            Text = "Remove",
+            BackgroundColor = Color.FromArgb("#FF4444"),
+            TextColor = Colors.White,
+            CornerRadius = 8,
+            HeightRequest = 32,
+            WidthRequest = 90,
+            HorizontalOptions = LayoutOptions.Center
         };
 
-        var barForeground = new BoxView
+        deleteBtn.Clicked += (s, e) => RemovePokemon(index);
+
+        layout.Children.Add(deleteBtn);
+
+        frame.Content = layout;
+        return frame;
+    }
+
+    private Frame CreateEmptySlot()
+    {
+        return new Frame
         {
-            Color = Colors.LimeGreen,
-            HeightRequest = 10,
-            CornerRadius = 5,
-            WidthRequest = 200 * percentage
+            CornerRadius = 15,
+            BackgroundColor = Color.FromArgb("#333333"),
+            Content = new VerticalStackLayout
+            {
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                Children =
+                {
+                    new Label
+                    {
+                        Text = "Empty",
+                        FontSize = 16,
+                        MaxLines = 1,
+                        TextColor = Colors.Gray,
+                        HorizontalOptions = LayoutOptions.Center
+                    }
+                }
+            }
         };
+    }
 
-        
-        var grid = new Grid { ColumnSpacing = 0 };
-        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
-        grid.Children.Add(barBackground);
-        grid.Children.Add(barForeground);
+    private void RemovePokemon(int index)
+    {
+        team.Team.RemoveAt(index);
+        TeamManager.SaveTeams();
+         TeamManager.LoadTeams();
+        RenderTeam();
+        StatsChartLayout.Children.Clear();
+        RenderStatsComparison();
+    }
 
-        barLayout.Children.Add(grid);
+    
+    private void RenderStatsComparison()
+    {
+        if (team.Team.Count == 0)
+            return;
 
-        return barLayout;
+        AddStatRow("HP");
+        AddStatRow("Attack");
+        AddStatRow("Defense");
+        AddStatRow("Special-Attack");
+        AddStatRow("Special-Defense");
+        AddStatRow("Speed");
+    }
+
+    private void AddStatRow(string statName)
+    {
+        var row = new VerticalStackLayout { Spacing = 4 };
+
+        row.Children.Add(new Label
+        {
+            Text = $" Combined {statName}",
+            TextColor = Colors.DimGrey,
+            FontSize = 16
+        });
+
+        var grid = new Grid
+        {
+            ColumnSpacing = 6
+        };
+        int statValue = 0;
+        foreach (var pkm in team.Team)
+        {
+             statValue += GetStat(pkm, statName);
+            
+        }
+            foreach (var pkm in     team.Team)
+        {
+             
+            double width = statValue * 2; 
+
+            var bar = new BoxView
+            {
+                Color = Colors.LimeGreen,
+                HeightRequest = 14,
+                WidthRequest = width,
+                CornerRadius = 4
+            };
+
+            var label = new Label
+            {
+                Text = statValue.ToString(),
+                TextColor = Colors.DimGrey,
+                FontSize = 12
+            };
+
+            var itemLayout = new VerticalStackLayout
+            {
+                Spacing = 2,
+                Children = { bar, label }
+            };
+
+            grid.Children.Add(itemLayout);
+        }
+
+        row.Children.Add(grid);
+        StatsChartLayout.Children.Add(row);
+    }
+
+    private int GetStat(Pokemon p, string statName)
+    {
+        return p.Stats.First(s => s.Stat.Name.Replace("-", "").Equals(
+            statName.Replace("-", "").ToLower()
+        )).BaseStat;
     }
 
     public async void Close(object sender, EventArgs e)
     {
         await Navigation.PopModalAsync();
+    }
+
+    public async void DeleteTeam(object sender, EventArgs e)
+    {
+
+        TeamManager.RemoveTeam(team);
     }
 }

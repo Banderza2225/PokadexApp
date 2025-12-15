@@ -1,25 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:PokadexApp"
              x:Class="PokadexApp.TeamsStatsPage"
-             BackgroundColor="{DynamicResource PageBackground}"
-             Title="Team Stats">
+             Title="Team Stats"
+             BackgroundColor="{DynamicResource Theme}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="10" Spacing="20">
+        <VerticalStackLayout Padding="15" Spacing="25">
 
-           
-            <VerticalStackLayout x:Name="TeamHeader" Spacing="5">
-                <Label x:Name="TeamNameLabel" Text="Team Name" FontSize="26" FontAttributes="Bold" TextColor="{DynamicResource Text}" />
-                <Label x:Name="TeamSizeLabel" Text="0/6 Pokémon" FontSize="18" TextColor="{DynamicResource Text}" />
+            
+            <Label x:Name="TeamNameLabel"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="{DynamicResource Text}"/>
+
+            
+            <Grid x:Name="TeamGrid" RowSpacing="15" ColumnSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+
+            
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Over all Team Stats"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource Text}"/>
+                <VerticalStackLayout x:Name="StatsChartLayout" Spacing="12"/>
             </VerticalStackLayout>
 
-          
-            <VerticalStackLayout x:Name="PokemonListLayout" Spacing="15"/>
+            
+            <Button Text="Close"
+                    BackgroundColor="{DynamicResource Accent1}"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="55"
+                    Clicked="Close"/>
 
-           
-            <Button Text="Close" BackgroundColor="{DynamicResource Accent1}" TextColor="White" CornerRadius="10" HeightRequest="50" Clicked="Close"/>
+
+            <Button Text="Delete Team"
+        BackgroundColor="{DynamicResource Accent1}"
+        TextColor="White"
+        CornerRadius="10"
+        HeightRequest="55"
+        Clicked="DeleteTeam"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

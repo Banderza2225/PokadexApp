@@ -24,15 +24,16 @@ public partial class TeamsPage : ContentPage
         while (teamName == "")
         {
             teamName = await DisplayPromptAsync("Create Team", "Enter a team name:");
-
+             
         }
-       
+        if (teamName !="" || teamName!=null)
+        {
             PokemonTeam Team = new PokemonTeam(teamName);
 
             TeamManager.AddTeam(Team);
             PokemonListLayout.Children.Clear();
             LoadTeams();
-
+        }
         
     }
     public void LoadTeams()
@@ -59,6 +60,8 @@ public partial class TeamsPage : ContentPage
                 TextColor = Colors.White
 
             };
+
+            
             layout.Children.Add(label);
 
             foreach (Pokemon pokemon in team.Team)
@@ -80,9 +83,7 @@ public partial class TeamsPage : ContentPage
                 layout.Children.Add(img);
             }
             
-
-            
-
+           
 
             frame.Content = layout;
             var tap = new TapGestureRecognizer();
