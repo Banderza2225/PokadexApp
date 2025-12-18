@@ -6,6 +6,8 @@
              Padding="20"
              Title="Pokémon Details">
 
+    
+  <!-- this page has a frame within thevframe there is a grid that displays the front and back of each normal and shiny pokemon then we have below that other stats like name id base exp and base stats  -->
     <ScrollView HorizontalOptions="Center">
         <VerticalStackLayout Spacing="20"
                             

@@ -6,8 +6,13 @@
              Title="History">
 
 
-
-    <ScrollView>
+    <!-- ive added two buttons on for closing the page and going back to the settings page  the other is to delete the history of all veiwed pokemon
+    
+    then there is a vertical stack layout that will be populated with the history of veiwed pokemon
+    
+    
+    -->
+        <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="10,50,10,10">
 
             <HorizontalStackLayout>

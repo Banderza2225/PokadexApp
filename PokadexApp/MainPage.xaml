@@ -6,7 +6,14 @@
              Title=""
              >
 
-
+<!-- 
+    is this the main page of the app where the user can see the history of favourited pokemon  pokemon
+    
+    similar to the history page a close page button and a delete favourites button are provided
+    
+    if u want to delete each pokemon indivisually u will have to click on the pokemon to go to its details page and delete it from there by clicking the favourit button again 
+    
+    -->
 
 
     <ScrollView>

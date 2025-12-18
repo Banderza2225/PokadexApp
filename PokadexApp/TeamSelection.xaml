@@ -7,7 +7,7 @@
              >
 
 
-
+ <!--   this page simply views all created teams with a button to close page -->
 
     <ScrollView x:Name="Scroll">
 
@@ -16,8 +16,8 @@
 
             <Button Text="Close"
                      x:Name="B"
-                 BackgroundColor="white"
-                 TextColor="black"
+                 BackgroundColor="{DynamicResource Accent1}"
+                 TextColor="{DynamicResource Text}"
                  FontAttributes="Bold"
                  CornerRadius="12"
                  WidthRequest="120"

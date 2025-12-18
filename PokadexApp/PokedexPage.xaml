@@ -6,7 +6,17 @@
              BackgroundColor="{DynamicResource Theme}">
 
 
-    <ScrollView x:Name="Scroll">
+    <!--for   this page i have added a search bar and a button to search for a pokemon by name or id
+    
+    then a picker to select a type of pokemon to filter the list by type
+    
+    then finally a vertical stack layout that will be populated with the list of pokemon either by search or by type or list all pokemon if no search or type is selected
+    
+    
+    
+    -->
+
+        <ScrollView x:Name="Scroll">
 
         
 
@@ -15,13 +25,15 @@
 
             <VerticalStackLayout>
                 <HorizontalStackLayout Spacing="5">
-                <SearchBar x:Name="PokemonSearchBar" Placeholder="Enter Pokémon name or id " WidthRequest="300"/>
+                <SearchBar x:Name="PokemonSearchBar" Placeholder="Enter Pokémon name or id " WidthRequest="300" />
                 <Button Text="Search" Clicked="OnSearch"/>
                 
             </HorizontalStackLayout>
 
                 <Picker x:Name="TypePicker"
                     Title="Search by Type"
+                         SelectedIndex="-1"
+        SelectedIndexChanged="OnTypeSelected"
                                />
             </VerticalStackLayout>
                     <VerticalStackLayout x:Name="PokemonListLayout"

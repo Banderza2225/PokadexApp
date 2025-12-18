@@ -9,34 +9,31 @@ namespace PokadexApp
 
     public partial class MainPage : ContentPage
     {
-      List<Pokemon> Favourites = new List<Pokemon>();
-        StorePokemon stored = new StorePokemon();
+
+
+
+      List<Pokemon> Favourites = new List<Pokemon>();// list to hold favourite pokemon
+        StorePokemon stored = new StorePokemon();// calling this class to use its methods for manipulating stored favourite pokemon
 
         public MainPage()
         {
             InitializeComponent();
-            Theme.ApplyTheme(Preferences.Get("Dark", false));
-            LoadPokemon();
+            Theme.ApplyTheme(Preferences.Get("Dark", false));// applying theme based on user preference check the Theme class for more details
+            LoadPokemon();// loading favourite pokemon when the page is initialized
         }
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-            
-        }
-
-        public async Task LoadPokemon()
+        
+        public async Task LoadPokemon()// method to load favourite pokemon
         {
             
-            Favourites = stored.LoadFavouritePokemon();
+            Favourites = stored.LoadFavouritePokemon();// loading favourite pokemon using the method from the StorePokemon class check that class for more details
 
             foreach (var item in Favourites)
             {
 
                 
 
-                await AddPokemon(item);
+                await AddPokemon(item);// adding each favourite pokemon to the UI using the AddPokemon method
             }
             
             
@@ -44,7 +41,7 @@ namespace PokadexApp
 
         
 
-        public async Task AddPokemon(Pokemon pokemon)
+        public async Task AddPokemon(Pokemon pokemon)// method to add favourite pokemon to the UI for more details check the comment in the pokedex page where the same method is used but adapted for all  pokemon
         {
 
             var nameLabel = new Label
@@ -119,8 +116,8 @@ namespace PokadexApp
 
         async void ShowPokemonPopup(Pokemon pokemon)
         {
-            await Navigation.PushModalAsync(new PokemonPopupPage(pokemon));
-            stored.SavePokemonVeiwed(pokemon);
+            await Navigation.PushModalAsync(new PokemonPopupPage(pokemon));// method to show a popup with more details about the pokemon when its tapped
+            stored.SavePokemonVeiwed(pokemon);// saving the pokemon as viewed when its tapped using the method from the StorePokemon class check that class for more details
 
         }
 
@@ -133,14 +130,14 @@ namespace PokadexApp
 
         public void CloseHistory(object sender, EventArgs e)
         {
-            Navigation.PopModalAsync();
+            Navigation.PopModalAsync();// this is for the button to close the favourites page and go back to the previous page
         }
-        public async void DeleteHistory(object sender, EventArgs e)
+        public async void DeleteHistory(object sender, EventArgs e)// method to delete all favourite pokemon
         {
-            stored.EraseFavourites();
+            stored.EraseFavourites();// using the method from the StorePokemon class to erase all favourite pokemon from local storage check that class for more details
 
-            PokemonListLayout.Children.Clear();
-            await LoadPokemon();
+            PokemonListLayout.Children.Clear();//   clearing the UI elements displaying favourite pokemon
+            await LoadPokemon();// reloading the favourite pokemon which will now be empty
         }
 
     }

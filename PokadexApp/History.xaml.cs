@@ -2,27 +2,27 @@ namespace PokadexApp;
 
 public partial class History : ContentPage
 {
-    List<Pokemon> Viewed = new List<Pokemon>();
-    StorePokemon storage = new StorePokemon();
+    List<Pokemon> Viewed = new List<Pokemon>();// list to hold viewed pokemon
+    StorePokemon storage = new StorePokemon();// calling this class to use its methods for manipulating stored viewed pokemon
     public History()
 	{
 		InitializeComponent();
-        LoadPokemon();
-        Theme.ApplyTheme(Preferences.Get("Dark",false));
+        LoadPokemon();// loading viewed pokemon when the page is initialized
+        Theme.ApplyTheme(Preferences.Get("Dark",false));// applying theme based on user preference check the Theme class for more details
     }
 
 
     public async Task LoadPokemon()
     {
 
-        Viewed = storage.LoadViewedPokemon();
+        Viewed = storage.LoadViewedPokemon();// loading viewed pokemon using the method from the StorePokemon class check that class for more details
 
         foreach (var item in Viewed)
         {
 
 
 
-            await AddPokemon(item);
+            await AddPokemon(item);// adding each viewed pokemon to the UI using the AddPokemon method
         }
 
 
@@ -30,21 +30,23 @@ public partial class History : ContentPage
 
     public void EraseHistory(object sender, EventArgs e)
     {
-        storage.EraseHistory();
+        storage.EraseHistory();//event handler to erase viewed pokemon history using the method from the StorePokemon class at the click of a button
     }
 
     public void CloseHistory(object sender, EventArgs e)
 	{
-		Navigation.PopModalAsync();
+		Navigation.PopModalAsync(); // this is for the button to close the history page and go back to the previous page
     }
 
-    private async void ReloadPokemon(object sender, EventArgs e)
-    {
-        PokemonListLayout.Children.Clear();
-        await LoadPokemon();
-    }
+   
 
-    public async Task AddPokemon(Pokemon pokemon)
+    public async Task AddPokemon(Pokemon pokemon)/* this is our method to add viewed pokemon to
+                                                   the UI this method is the eaxt same used in the MainPage for 
+                                                  favourites but adapted for viewed pokemon and the same used in the pokedex page  so check the pokedex page for more details,but essentiall we take 
+                                                     a pokemon object as a parameter create UI elements to display its name,id and image and add a tap gesture recognizer to show a popup with more details when tapped
+                                                  
+                                                  
+                                                  */
     {
 
         var nameLabel = new Label
@@ -118,16 +120,16 @@ public partial class History : ContentPage
 
     async void ShowPokemonPopup(Pokemon pokemon)
     {
-        await Navigation.PushModalAsync(new PokemonPopupPage(pokemon));
-        
+        await Navigation.PushModalAsync(new PokemonPopupPage(pokemon));// method to show a popup with more details about the pokemon when its tapped 
+
 
     }
 
     public async void DeleteHistory(object sender, EventArgs e)
     {
-       storage.EraseHistory();
+       storage.EraseHistory();// calling the method to erase history from local storage
 
-        PokemonListLayout.Children.Clear();
+        PokemonListLayout.Children.Clear();//we also clear the UI elements displaying viewed pokemon essentially reloading the page
         await LoadPokemon();
     }
 }

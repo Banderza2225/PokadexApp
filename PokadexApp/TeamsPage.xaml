@@ -5,6 +5,10 @@
              Title=""
              
               BackgroundColor="{DynamicResource Theme}">
+    
+    
+    <!-- here at the top we have two buttons one is for reloading the page the other is for creating a new team -->
+    
     <ScrollView>
         <VerticalStackLayout Spacing="10">
         <Button

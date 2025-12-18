@@ -5,6 +5,8 @@
              Title="Team Stats"
              BackgroundColor="{DynamicResource Theme}">
 
+
+    <!-- this page displays the stats of a selected team including the team name, the pokemon in the team, and overall team stats represented in charts -->
     <ScrollView>
         <VerticalStackLayout Padding="15" Spacing="25">
 

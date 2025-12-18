@@ -6,6 +6,7 @@
              x:Name="settingsPage"
              BackgroundColor="{DynamicResource Theme}">
              
+    <!--- in this page we have a series of buttons that can acces multple features of the app like toggle the theme or view favourites or the history or to delete all teams  -->
     <VerticalStackLayout
         
         Spacing="10">
